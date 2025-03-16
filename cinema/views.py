@@ -1,6 +1,5 @@
 from django.db.models import F, Count
-from django_filters.rest_framework.backends import DjangoFilterBackend
-from rest_framework import viewsets, generics
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
 from cinema.models import Genre, Actor, CinemaHall, Movie, MovieSession, Order
