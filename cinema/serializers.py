@@ -83,13 +83,6 @@ class MovieSessionSerializer(serializers.ModelSerializer):
     tickets_available = serializers.IntegerField(source="available_tickets",
                                                  read_only=True)
 
-    # taken_places = serializers.SlugRelatedField(
-    #     source="tickets",
-    #     many=True,
-    #     read_only=True,
-    #     slug_field="seat"
-    # )
-
     class Meta:
         model = MovieSession
         fields = ("id", "show_time", "movie_title", "cinema_hall_name",
