@@ -17,48 +17,32 @@ from cinema.serializers import (
 )
 
 
-class GenreViewSet(viewsets.ModelViewSet):
+class BaseViewSet(viewsets.ModelViewSet):
+    def list(self, request, *args, **kwargs):
+        response = super().list(request, *args, **kwargs)
+
+        response.data = response.data["results"]
+        return response
+
+
+class GenreViewSet(BaseViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
 
-    def list(self, request, *args, **kwargs):
-        response = super().list(request, *args, **kwargs)
 
-        response.data = response.data["results"]
-        return response
-
-
-class ActorViewSet(viewsets.ModelViewSet):
+class ActorViewSet(BaseViewSet):
     queryset = Actor.objects.all()
     serializer_class = ActorSerializer
 
-    def list(self, request, *args, **kwargs):
-        response = super().list(request, *args, **kwargs)
 
-        response.data = response.data["results"]
-        return response
-
-
-class CinemaHallViewSet(viewsets.ModelViewSet):
+class CinemaHallViewSet(BaseViewSet):
     queryset = CinemaHall.objects.all()
     serializer_class = CinemaHallSerializer
 
-    def list(self, request, *args, **kwargs):
-        response = super().list(request, *args, **kwargs)
 
-        response.data = response.data["results"]
-        return response
-
-
-class MovieViewSet(viewsets.ModelViewSet):
+class MovieViewSet(BaseViewSet):
     queryset = Movie.objects.all().select_related()
     serializer_class = MovieSerializer
-
-    def list(self, request, *args, **kwargs):
-        response = super().list(request, *args, **kwargs)
-
-        response.data = response.data["results"]
-        return response
 
     def get_serializer_class(self):
         if self.action == "list":
